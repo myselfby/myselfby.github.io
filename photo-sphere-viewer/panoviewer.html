@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8" />
+		<title>Photo Sphere Viewer</title>
+		<meta name="viewport" content="initial-scale=1.0" />
+		<link rel="stylesheet" href="./panoviewer.css" />
+	</head>
+
+	<body>
+		<div id="pano-viewport">
+		</div>
+		<form style="visibility:hidden " method="get" action="panoviewer.html" id="selectfile">
+			<p style="text-align: center;">
+				<input type="file" name="pano" id="pano" />
+			</p>
+		</form>
+		<!-- External library -->
+		<script src="./three.min.js"></script>
+
+		<!-- External library, but included in the build -->
+		<script src="./src/sphoords.js"></script>
+
+		<!-- Photo Sphere Viewer files -->
+		<script src="./src/PhotoSphereViewer.js"></script>
+		<script src="./src/PSVNavBar.js"></script>
+		<script src="./src/PSVNavBarButton.js"></script>
+
+		<!-- Test script -->
+		<script src="./panoviewer.js"></script>
+	</body>
+
+</html>

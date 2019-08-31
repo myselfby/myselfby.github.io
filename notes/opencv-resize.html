@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8" />
+		<title>自己实现Opencv Resize</title>
+		<meta name="viewport" content="initial-scale=1.0" />
+	</head>
+
+	<body>
+		<article>
+		<header>
+		<h1>Custom Resize</h1>
+		</header>
+		<hr color=#101213 size=1/>
+		<div style="border:1px solid gray;">
+		<pre>
+		<code>
+		void ResizeImage(const cv::Mat& srcImage, cv::Mat& destImage)
+		{
+			float xdelta = srcImage.cols*1.0 / destImage.cols;
+			float ydelta = srcImage.rows*1.0 / destImage.rows;
+			for (int row = 0; row < destImage.rows; row++)
+			{
+				int srcRow = round(row * ydelta);
+				for (int col = 0; col < destImage.cols; col++)
+				{
+					int srcCol = round(col * xdelta);
+					destImage.at<cv::Vec3b>(row, col) = srcImage.at<cv::Vec3b>(srcRow, srcCol);
+				}
+			}
+		}
+		
+		void ResizeImage2(const cv::Mat& srcImage, cv::Mat& destImage)
+		{
+			float xdelta = srcImage.cols*1.0 / destImage.cols;
+			float ydelta = srcImage.rows*1.0 / destImage.rows;
+			for (int row = 0; row < destImage.rows; row++)
+			{
+				float fRow = row * ydelta;
+				int srcRow = round(fRow);
+				int topRow = fRow;
+				int bottomRow = topRow + 1;
+				if (bottomRow >= srcImage.rows)
+				{
+					bottomRow = topRow;
+				}
+				for (int col = 0; col < destImage.cols; col++)
+				{
+					float fCol = col * xdelta;
+					int srcCol = round(fCol);
+					int leftCol = fCol;
+					int rightCol = leftCol + 1;
+					if (rightCol >= srcImage.cols)
+					{
+						rightCol = leftCol;
+					}
+					const cv::Vec3b& leftColor = srcImage.at<cv::Vec3b>(srcRow, leftCol);
+					const cv::Vec3b& rightColor = srcImage.at<cv::Vec3b>(srcRow, rightCol);
+					const cv::Vec3b& topColor = srcImage.at<cv::Vec3b>(topRow, srcCol);
+					const cv::Vec3b& bottomColor = srcImage.at<cv::Vec3b>(bottomRow, srcCol);
+					int b = leftColor[0] + rightColor[0] + topColor[0] + bottomColor[0];
+					int g = leftColor[1] + rightColor[1] + topColor[1] + bottomColor[1];
+					int r = leftColor[2] + rightColor[2] + topColor[2] + bottomColor[2];
+					destImage.at<cv::Vec3b>(row, col) = cv::Vec3b(b/4,g/4,r/4);
+				}
+			}
+		}
+		</code>
+		</pre>
+		</div>
+		<footer>
+			<hr color=#101213 size=1/>
+		</footer>
+		</article>
+	</body>
+
+</html>
