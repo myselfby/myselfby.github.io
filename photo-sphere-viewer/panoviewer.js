@@ -68,7 +68,10 @@ function loadPredefinedPanorama(filename) {
 		//loading_html: loader,
 
 		// Disable smooth moves to test faster
-		smooth_user_moves: false
+		smooth_user_moves: false,
+		long_offset:0.001,
+		lat_offset:0.002,
+		anim_speed:'1rpm'
 	});
 }
 
@@ -97,7 +100,10 @@ function loadFromUrlFile(filename)
 			},
 
 			// No XMP data
-			usexmpdata: false
+			usexmpdata: false,
+			long_offset:0.001,
+		    lat_offset:0.002,
+		    anim_speed:'1rpm'
 		});
 	};
 
